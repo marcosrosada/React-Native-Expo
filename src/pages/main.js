@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../services/api';
 
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 
 // import { Container } from './styles';
 
@@ -23,15 +23,23 @@ export default class Main extends Component {
     this.setState({ products: response.data });
   };
 
+  renderItem = ({ item }) => (
+    <View>
+      <Text>{item.title}</Text>
+      <Text>{item.description}</Text>
+    </View>
+  );
+
   render() {
     const { products } = this.state;
 
     return (
       <View>
-        <Text>Página Main {products.length}</Text>
-        {products.map((product) => (
-          <Text>{product.title}</Text>
-        ))}
+        <FlatList
+          data={products}
+          keyExtractor={(item) => '' + item.id}
+          renderItem={this.renderItem}
+        />
       </View>
     );
   }
