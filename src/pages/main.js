@@ -10,20 +10,28 @@ export default class Main extends Component {
     title: 'React Native Expo',
   };
 
+  state = {
+    products: [],
+  };
   componentDidMount() {
     this.loadProducts();
   }
 
-  loadProducts = () => {
-    const response = axios.get('/products');
+  loadProducts = async () => {
+    const response = await axios.get('/products');
 
-    console.log(response);
+    this.setState({ products: response.data });
   };
 
   render() {
+    const { products } = this.state;
+
     return (
       <View>
-        <Text>Página Main</Text>
+        <Text>Página Main {products.length}</Text>
+        {products.map((product) => (
+          <Text>{product.title}</Text>
+        ))}
       </View>
     );
   }
