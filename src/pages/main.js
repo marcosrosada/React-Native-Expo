@@ -32,7 +32,15 @@ export default class Main extends Component {
   loadProducts = async (page = 1) => {
     const response = await axios.get(`/products?_page=${page}&_limit=10`);
 
-    this.setState({ products: response.data });
+    this.setState({ products: [...this.state.products, ...response.data] });
+  };
+
+  loadMore = () => {
+    const { productInfo } = this.state;
+
+    if (productInfo.page === productInfo.pages) return;
+
+    this.loadProducts((productInfo.page += 1));
   };
 
   renderItem = ({ item }) => (
@@ -56,6 +64,8 @@ export default class Main extends Component {
           data={products}
           keyExtractor={item => "" + item.id}
           renderItem={this.renderItem}
+          onEndReached={this.loadMore}
+          onEndReachedThreshold={0.1}
         />
       </View>
     );
