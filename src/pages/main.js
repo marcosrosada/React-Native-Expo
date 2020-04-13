@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import axios from "../services/api";
+import React, { Component } from 'react';
+import axios from '../services/api';
 
 import {
   View,
   Text,
   FlatList,
   TouchableOpacity,
-  StyleSheet
-} from "react-native";
+  StyleSheet,
+} from 'react-native';
 
 // import { Container } from './styles';
 
 export default class Main extends Component {
   static navigationOptions = {
-    title: "React Native Expo"
+    title: 'React Native Expo',
   };
 
   state = {
@@ -22,8 +22,8 @@ export default class Main extends Component {
       page: 1,
       pages: 2,
       total: 15,
-      limit: 10
-    }
+      limit: 10,
+    },
   };
   componentDidMount() {
     this.loadProducts();
@@ -51,7 +51,7 @@ export default class Main extends Component {
       <TouchableOpacity
         style={styles.productButton}
         onPress={() => {
-          this.props.navigation.navigate('Product');
+          this.props.navigation.navigate('Product', { product: item });
         }}
       >
         <Text style={styles.productButtonText}>Acessar</Text>
@@ -67,7 +67,7 @@ export default class Main extends Component {
         <FlatList
           contentContainerStyle={styles.list}
           data={products}
-          keyExtractor={item => "" + item.id}
+          keyExtractor={(item) => '' + item.id}
           renderItem={this.renderItem}
           onEndReached={this.loadMore}
           onEndReachedThreshold={0.1}
@@ -80,49 +80,49 @@ export default class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAFAFA"
+    backgroundColor: '#FAFAFA',
   },
 
   list: {
-    padding: 20
+    padding: 20,
   },
 
   productContainer: {
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     borderWidth: 1,
-    borderColor: "#DDD",
+    borderColor: '#DDD',
     borderRadius: 5,
     padding: 20,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   productTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#333"
+    fontWeight: 'bold',
+    color: '#333',
   },
 
   productDescription: {
     fontSize: 16,
-    color: "#999",
+    color: '#999',
     marginTop: 5,
-    lineHeight: 24
+    lineHeight: 24,
   },
 
   productButton: {
     height: 42,
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: "#DA552F",
-    backgroundColor: "transparent",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 5
+    borderColor: '#DA552F',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
   },
 
   productButtonText: {
     fontSize: 16,
-    color: "#DA552F",
-    fontWeight: "bold"
-  }
+    color: '#DA552F',
+    fontWeight: 'bold',
+  },
 });
